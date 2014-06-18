@@ -1,2 +1,3 @@
 %body{ class: (@in_use) ? "red" : "green"}
   %h1= (@in_use) ? "IN USE" : "VACANT"
+  %script= "setTimeout(\"location.reload()\",3000);"

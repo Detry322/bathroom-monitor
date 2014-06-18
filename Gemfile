@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'rspec-rails'
 gem 'haml-rails'
 gem 'pry'
+gem 'chartkick'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
