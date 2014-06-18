@@ -8,6 +8,11 @@ class BathroomController < ApplicationController
     @in_use = BathroomVisit.in_use?
   end
 
+  def statistics
+    @total_visit_count = BathroomVisit.count;
+    @today_visit_count = BathroomVisit.total_today;
+  end
+
   def update
     if params[:secret] == BathroomMonitor::SECRET
       if ['open','closed'].include?(params[:status])

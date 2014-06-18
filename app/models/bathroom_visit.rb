@@ -13,6 +13,14 @@ class BathroomVisit < ActiveRecord::Base
     self.save
   end
 
+  def self.count_trips_between(start_time,end_time)
+    BathroomVisit.where("start_time >= ? AND end_time <= ?", start_time, end_time).count
+  end
+
+  def self.total_today
+    count_trips_between(Date.today.to_time,Date.today.to_time + 24.hours)
+  end
+
   def deactivate
     self.active = false
     self.save
