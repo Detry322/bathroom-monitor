@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BathroomMonitor</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <title>TXI Bathroom Monitor</title>
+  <%= stylesheet_link_tag    'application' %>
+  <%= javascript_include_tag 'application' %>
+  <link rel="icon" type="image/png" href="<%=
+    if @in_use.nil?
+      "/assets/icon.png"
+    else
+      (@in_use) ? "/assets/occupied.png" : "/assets/vacant.png"
+    end
+  %>" />
 </head>
 
 <%= yield %>
