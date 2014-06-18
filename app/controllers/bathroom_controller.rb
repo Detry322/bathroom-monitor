@@ -3,5 +3,6 @@ class BathroomController < ApplicationController
   end
 
   def update
+    head :ok
   end
 end
