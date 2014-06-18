@@ -11,6 +11,8 @@ class BathroomController < ApplicationController
   def statistics
     @total_visit_count = BathroomVisit.count;
     @today_visit_count = BathroomVisit.total_today;
+    @seven_day_visit_count = BathroomVisit.total_seven_day;
+    @thirty_day_visit_count = BathroomVisit.total_thirty_day;
   end
 
   def update

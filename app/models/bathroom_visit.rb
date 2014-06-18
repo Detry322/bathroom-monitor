@@ -21,6 +21,14 @@ class BathroomVisit < ActiveRecord::Base
     count_trips_between(Date.today.to_time,Date.today.to_time + 24.hours)
   end
 
+  def self.total_seven_day
+    count_trips_between(Time.now - 7.days,Date.today.to_time + 24.hours)
+  end
+
+  def self.total_thirty_day
+    count_trips_between(Time.now - 30.days,Date.today.to_time + 24.hours)
+  end
+
   def deactivate
     self.active = false
     self.save
