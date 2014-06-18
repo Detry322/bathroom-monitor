@@ -2,9 +2,10 @@ class BathroomController < ApplicationController
 
   if BathroomVisit.last.nil?
     BathroomVisit.create_session.deactivate
+  end
 
   def index
-    @open = BathroomVisit.in_use?
+    @in_use = BathroomVisit.in_use?
   end
 
   def update
@@ -15,7 +16,7 @@ class BathroomController < ApplicationController
           if last_visit.active?
             last_visit.update_end_time
           else
-            last_visit.create_session
+            BathroomVisit.create_session
           end
         elsif params[:status] == 'open'
           if last_visit.active?
