@@ -34,76 +34,75 @@ describe Concierge do
   it 'should get the trips between two times' do
     x = Concierge.trips_between(Date.today.to_time,Time.now)
     y = Concierge.trips_between(Time.day_start(6),Time.now - 47.minutes)
-    expect x.class.to eq Array
-    expect y.class.to eq Array
-    expect x.count.to eq 3
-    expect y.count.to eq 2
+    expect(x.count).to eq 3
+    expect(y.count).to eq 2
   end
 
   it 'should count the trips between two times' do
     x = Concierge.count_trips_between(Date.today.to_time,Time.now)
     y = Concierge.count_trips_between(Time.day_start(6),Time.now - 47.minutes)
-    expect x.to eq 3
-    expect y.to eq 2
+    expect(x).to eq 3
+    expect(y).to eq 2
   end
 
   it 'should count the total number of trips' do
-    expect Concierge.total_trips.to eq 6
+    expect(Concierge.total_trips).to eq 6
   end
 
   it 'should count the number of trips today' do
-    expect Concierge.today_trips.to eq 3
+    expect(Concierge.today_trips).to eq 3
   end
 
   it 'should count the number of trips in the past 7 days' do
-    expect Concierge.seven_day_trips.to eq 4
+    expect(Concierge.seven_day_trips).to eq 4
   end
 
   it 'should count the number of trips in the past 30 days' do
-    expect Concierge.thirty_day_trips.to eq 5
+    expect(Concierge.thirty_day_trips).to eq 5
   end
 
   it 'should get the total number of seconds' do
-    expect Concierge.total_seconds.to eq 11760
+    expect(Concierge.total_seconds).to eq 11760
   end
 
   it 'should get the number of seconds today' do
-    expect Concierge.today_seconds.to eq 960
+    expect(Concierge.today_seconds).to eq 960
   end
 
   it 'should get the number of seconds in the past 7 days' do
-    expect Concierge.seven_day_seconds.to eq 4560
+    expect(Concierge.seven_day_seconds).to eq 4560
   end
 
   it 'should get the number of seconds in the past 30 days' do
-    expect Concierge.thirty_day_seconds.to eq 8160
+    expect(Concierge.thirty_day_seconds).to eq 8160
   end
 
   it 'should generate a report of trips for the past seven days' do
     x = Concierge.seven_day_report_trips
-    expect x.count.to eq 7
-    expect x[6][1].to eq 3
-    expect x[6][0].to eq Time.now.strftime("%A")
+    expect(x.count).to eq 7
+    expect(x[6][1]).to eq 3
+    expect(x[6][0]).to eq Time.now.strftime("%A")
   end
 
   it 'should generate a report of seconds for the past seven days' do
-    x = Concierge.seve_day_report_seconds
-    expect x.count.to eq 7
-    expect x[6][1].to eq 960
-    expect x[6][0].to eq Time.now.strftime("%A")
+    x = Concierge.seven_day_report_seconds
+    expect(x.count).to eq 7
+    expect(x[6][1]).to eq 960
+    expect(x[6][0]).to eq Time.now.strftime("%A")
   end
 
-  it 'should say if the bathroom is occupied' do
+  it 'should correctly say if the bathroom is occupied' do
     BathroomVisit.create(start_time: Time.now, end_time: nil)
-    expect (Concierge.occupied?).to eq true
-    BathroomVisit.last.end_time = Time.now;
-    BathroomVisit.last.save
-    expect (Concierge.occupied?).to eq false
+    expect(Concierge.occupied?).to eq true
+    x = BathroomVisit.last
+    x.end_time = Time.now
+    x.save
+    expect(Concierge.occupied?).to eq false
   end
 
   it 'should properly create an active BathroomVisit' do
     Concierge.create_session
-    expect (BathroomVisit.last.end_time).to eq nil
+    expect(BathroomVisit.last.end_time).to eq nil
     BathroomVisit.last.end_time = Time.now;
     BathroomVisit.last.save
   end

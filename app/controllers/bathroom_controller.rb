@@ -1,7 +1,7 @@
 class BathroomController < ApplicationController
 
-  if BathroomVisit.last.nil?
-    BathroomVisit.create_session.deactivate
+  if ['developement','production'].include?(Rails.env) and BathroomVisit.last.nil?
+    Concierge.create_session.deactivate
   end
 
   def index
