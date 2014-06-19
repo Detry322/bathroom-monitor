@@ -1,7 +1,8 @@
 class BathroomController < ApplicationController
 
-  if ['developement','production'].include?(Rails.env) and BathroomVisit.last.nil?
-    Concierge.create_session.deactivate
+  if ['development','production'].include?(Rails.env) and BathroomVisit.last.nil?
+    puts "hi"
+    Concierge.create_session.update_end_time
   end
 
   def index
@@ -12,17 +13,25 @@ class BathroomController < ApplicationController
     @today_visit_count = Concierge.today_trips;
     @seven_day_visit_count = Concierge.seven_day_trips;
     @thirty_day_visit_count = Concierge.thirty_day_trips;
-    @total_visit_count = Concierge.trips;
+    @total_visit_count = Concierge.total_trips;
     @today_visit_seconds = Concierge.today_seconds;
     @seven_day_visit_seconds = Concierge.seven_day_seconds;
     @thirty_day_visit_seconds = Concierge.thirty_day_seconds;
-    @total_visit_seconds = Concierge.seconds;
+    @total_visit_seconds = Concierge.total_seconds;
     @seven_day_time_graph = Concierge.seven_day_report_seconds;
     @seven_day_trip_graph = Concierge.seven_day_report_trips;
 
   end
 
-  def update
+  def update_browser
+    if Concierge.occupied?
+      render plain: "occupied"
+    else
+      render plain: "vacant"
+    end
+  end
+
+  def update_status
     if params[:secret] == BathroomMonitor::SECRET
       if ['open','closed'].include?(params[:status])
         last_visit = BathroomVisit.last
