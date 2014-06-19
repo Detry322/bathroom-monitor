@@ -28,6 +28,80 @@ RSpec.describe BathroomController, :type => :controller do
 
   end
 
+  describe "GET statistics" do
+
+    render_views
+
+    before do
+      now = Time.now
+
+      visit1_start = now - (40.days + 1.hours)
+      visit1_end = now - (40.days)
+
+      visit2_start = now - (25.days + 1.hours)
+      visit2_end = now - (25.days)
+
+      visit3_start = now - (5.days + 1.hours)
+      visit3_end = now - (5.days)
+
+      visit4_start = now - (1.hours)
+      visit4_end = now - (50.minutes)
+
+      visit5_start = now - (45.minutes)
+      visit5_end = now - 40.minutes
+
+      visit6_start = now - 30.minutes
+      visit6_end = now - 29.minutes
+
+      BathroomVisit.create(start_time: visit1_start, end_time: visit1_end);
+      BathroomVisit.create(start_time: visit2_start, end_time: visit2_end);
+      BathroomVisit.create(start_time: visit3_start, end_time: visit3_end);
+      BathroomVisit.create(start_time: visit4_start, end_time: visit4_end);
+      BathroomVisit.create(start_time: visit5_start, end_time: visit5_end);
+      BathroomVisit.create(start_time: visit6_start, end_time: visit6_end);
+    end
+
+    it 'should display total number of visits today' do
+      get :statistics
+      expect(response.body).to match(/<strong>3<\/strong>/)
+    end
+
+    it 'should display total number of visits in the past seven days' do
+      get :statistics
+      expect(response.body).to match(/<strong>4<\/strong>/)
+    end
+
+    it 'should display total number of visits in the past thirty days' do
+      get :statistics
+      expect(response.body).to match(/<strong>5<\/strong>/)
+    end
+
+    it 'should display total number of visits' do
+      get :statistics
+      expect(response.body).to match(/<strong>6<\/strong>/)
+    end
+
+    it 'should display total number of minutes today' do
+      get :statistics
+      expect(response.body).to match(/<strong>16<\/strong>/)
+    end
+
+    it 'should display total number of minutes in the past seven days' do
+      get :statistics
+      expect(response.body).to match(/<strong>76<\/strong>/)
+    end
+
+    it 'should display total number of hours in the past thirty days' do
+      get :statistics
+      expect(response.body).to match(/<strong>2.27<\/strong>/)
+    end
+
+    it 'should display total number of hours' do
+      get :statistics
+      expect(response.body).to match(/<strong>3.27<\/strong>/)
+    end
+
+  end
   describe "GET update" do
     render_views
 
