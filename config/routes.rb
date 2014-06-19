@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'bathroom#index'
-  post 'update' => 'bathroom#update'
+  post 'update' => 'bathroom#update_status'
+  get 'update' => 'bathroom#update_browser'
   get 'statistics' => 'bathroom#statistics'
 
   # Example of regular route:
