@@ -13,7 +13,7 @@ class BathroomVisit < ActiveRecord::Base
   end
 
   def self.trips_between(start_time,end_time)
-    BathroomVisit.where("start_time >= ? AND end_time <= ?", start_time, end_time).count
+    BathroomVisit.where("start_time >= ? AND end_time <= ?", start_time, end_time)
   end
 
   def activate
