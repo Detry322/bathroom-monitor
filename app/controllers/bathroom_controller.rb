@@ -5,20 +5,20 @@ class BathroomController < ApplicationController
   end
 
   def index
-    @in_use = BathroomVisit.in_use?
+    @in_use = Concierge.occupied?
   end
 
   def statistics
-    @today_visit_count = BathroomHelper::today_trips;
-    @seven_day_visit_count = BathroomHelper::seven_day_trips;
-    @thirty_day_visit_count = BathroomHelper::thirty_day_trips;
-    @total_visit_count = BathroomHelper::trips;
-    @today_visit_seconds = BathroomHelper::today_seconds;
-    @seven_day_visit_seconds = BathroomHelper::seven_day_seconds;
-    @thirty_day_visit_seconds = BathroomHelper::thirty_day_seconds;
-    @total_visit_seconds = BathroomHelper::seconds;
-    @seven_day_time_graph = BathroomHelper::seven_day_report_seconds;
-    @seven_day_trip_graph = BathroomHelper::seven_day_report_trips;
+    @today_visit_count = Concierge.today_trips;
+    @seven_day_visit_count = Concierge.seven_day_trips;
+    @thirty_day_visit_count = Concierge.thirty_day_trips;
+    @total_visit_count = Concierge.trips;
+    @today_visit_seconds = Concierge.today_seconds;
+    @seven_day_visit_seconds = Concierge.seven_day_seconds;
+    @thirty_day_visit_seconds = Concierge.thirty_day_seconds;
+    @total_visit_seconds = Concierge.seconds;
+    @seven_day_time_graph = Concierge.seven_day_report_seconds;
+    @seven_day_trip_graph = Concierge.seven_day_report_trips;
 
   end
 
@@ -27,16 +27,9 @@ class BathroomController < ApplicationController
       if ['open','closed'].include?(params[:status])
         last_visit = BathroomVisit.last
         if params[:status] == 'closed'
-          if last_visit.active?
-            last_visit.update_end_time
-          else
-            BathroomVisit.create_session
-          end
+          Concierge.create_session unless last_visit.active?
         elsif params[:status] == 'open'
-          if last_visit.active?
-            last_visit.deactivate
-            last_visit.update_end_time
-          end
+          last_visit.update_end_time if last_visit.active?
         end
         head :ok
       else
