@@ -8,6 +8,20 @@ class BathroomController < ApplicationController
     @in_use = BathroomVisit.in_use?
   end
 
+  def statistics
+    @today_visit_count = BathroomHelper::today_trips;
+    @seven_day_visit_count = BathroomHelper::seven_day_trips;
+    @thirty_day_visit_count = BathroomHelper::thirty_day_trips;
+    @total_visit_count = BathroomHelper::trips;
+    @today_visit_seconds = BathroomHelper::today_seconds;
+    @seven_day_visit_seconds = BathroomHelper::seven_day_seconds;
+    @thirty_day_visit_seconds = BathroomHelper::thirty_day_seconds;
+    @total_visit_seconds = BathroomHelper::seconds;
+    @seven_day_time_graph = BathroomHelper::seven_day_report_seconds;
+    @seven_day_trip_graph = BathroomHelper::seven_day_report_trips;
+
+  end
+
   def update
     if params[:secret] == BathroomMonitor::SECRET
       if ['open','closed'].include?(params[:status])

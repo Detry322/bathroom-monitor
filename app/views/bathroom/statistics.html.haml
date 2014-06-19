@@ -1,0 +1,21 @@
+%body
+  %div.container
+    %h2 Bathroom Statistics
+    %hr
+    %p People have gone to the bathroom...
+    %ul
+      %li== ...<strong>#{@today_visit_count}</strong> times today.
+      %li== ...<strong>#{@seven_day_visit_count}</strong> times in the last 7 days.
+      %li== ...<strong>#{@thirty_day_visit_count}</strong> times in the last 30 days.
+      %li== ...<strong>#{@total_visit_count}</strong> times since installation.
+    %p In there, they collectively have spent...
+    %ul
+      %li== ...<strong>#{(@today_visit_seconds/60.0).round(2)}</strong> minutes today.
+      %li== ...<strong>#{(@seven_day_visit_seconds/60.0).round(2)}</strong> minutes in the last 7 days.
+      %li== ...<strong>#{(@thirty_day_visit_seconds/60.0/60).round(2)}</strong> hours in the last 30 days.
+      %li== ...<strong>#{(@total_visit_seconds/60.0/60).round(2)}</strong> hours since installation.
+    %hr
+    %h3 Seconds Spent by Day
+    = column_chart(@seven_day_time_graph)
+    %h3 Trips by Day
+    = column_chart(@seven_day_trip_graph)

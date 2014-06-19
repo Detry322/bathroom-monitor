@@ -4,6 +4,7 @@
   <title>TXI Bathroom Monitor</title>
   <%= stylesheet_link_tag    'application' %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   <link rel="icon" type="image/png" href="<%=
     if @in_use.nil?
       "/assets/icon.png"
