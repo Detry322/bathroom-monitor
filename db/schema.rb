@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20140618163146) do
   create_table "bathroom_visits", force: true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

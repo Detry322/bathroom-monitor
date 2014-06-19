@@ -14,3 +14,39 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+function changeFavicon(src) {
+ var link = document.createElement('link'),
+     oldLink = document.getElementById('dynamic-favicon');
+ link.id = 'dynamic-favicon';
+ link.rel = 'icon';
+ link.href = src;
+ if (oldLink) {
+  document.head.removeChild(oldLink);
+ }
+ document.head.appendChild(link);
+}
+
+function update()
+{
+  xmlhttp=new XMLHttpRequest();
+  xmlhttp.open("GET","/update",false);
+  xmlhttp.send();
+  x = $('body');
+  if (xmlhttp.responseText == "occupied") {
+    if (x.hasClass("green")) {
+      x.removeClass("green");
+      x.addClass("red");
+      $('h1').html("IN USE");
+      changeFavicon("/assets/occupied.png");
+    }
+  } else {
+    if (x.hasClass("red")) {
+      x.removeClass("red");
+      x.addClass("green");
+      $('h1').html("VACANT");
+      changeFavicon("/assets/vacant.png");
+    }
+  }
+  setTimeout("update();",3000);
+}
