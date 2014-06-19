@@ -33,7 +33,6 @@ RSpec.describe BathroomController, :type => :controller do
     render_views
 
     before do
-
       now = Time.now
 
       visit1_start = now - (40.days + 1.hours)
