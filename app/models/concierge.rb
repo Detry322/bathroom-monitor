@@ -55,7 +55,7 @@ class Concierge
     result = []
     7.times do |day|
       times = Concierge.count_trips_between(Time.day_start(day),Time.day_end(day))
-      result << [ Time.day_start(day).strftime("%A") , times ]
+      result << [ Time.day_start(day).strftime("%a") , times ]
     end
     result.reverse
   end
@@ -64,7 +64,7 @@ class Concierge
     result = []
     7.times do |day|
       trips = Concierge.trips_between(Time.day_start(day),Time.day_end(day))
-      result << [ Time.day_start(day).strftime("%A") , get_seconds(trips) ]
+      result << [ Time.day_start(day).strftime("%a") , get_seconds(trips) ]
     end
     result.reverse
   end

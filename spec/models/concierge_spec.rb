@@ -81,14 +81,14 @@ describe Concierge do
     x = Concierge.seven_day_report_trips
     expect(x.count).to eq 7
     expect(x[6][1]).to eq 3
-    expect(x[6][0]).to eq Time.now.strftime("%A")
+    expect(x[6][0]).to eq Time.now.strftime("%a")
   end
 
   it 'should generate a report of seconds for the past seven days' do
     x = Concierge.seven_day_report_seconds
     expect(x.count).to eq 7
     expect(x[6][1]).to eq 960
-    expect(x[6][0]).to eq Time.now.strftime("%A")
+    expect(x[6][0]).to eq Time.now.strftime("%a")
   end
 
   it 'should correctly say if the bathroom is occupied' do

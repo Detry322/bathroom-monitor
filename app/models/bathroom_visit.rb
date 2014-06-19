@@ -10,7 +10,8 @@ class BathroomVisit < ActiveRecord::Base
   end
 
   def duration
-    self.end_time-self.start_time
+    end_time = (self.end_time.nil?) ? Time.now : self.end_time
+    end_time-self.start_time
   end
 
 end
