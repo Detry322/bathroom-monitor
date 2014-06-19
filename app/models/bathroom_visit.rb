@@ -8,25 +8,17 @@ class BathroomVisit < ActiveRecord::Base
     BathroomVisit.last.active?
   end
 
-  def activate
-    self.active = true
-    self.save
-  end
-
   def self.count_trips_between(start_time,end_time)
     BathroomVisit.where("start_time >= ? AND end_time <= ?", start_time, end_time).count
   end
 
-  def self.total_today
-    count_trips_between(Date.today.to_time,Date.today.to_time + 24.hours)
+  def self.trips_between(start_time,end_time)
+    BathroomVisit.where("start_time >= ? AND end_time <= ?", start_time, end_time).count
   end
 
-  def self.total_seven_day
-    count_trips_between(Time.now - 7.days,Date.today.to_time + 24.hours)
-  end
-
-  def self.total_thirty_day
-    count_trips_between(Time.now - 30.days,Date.today.to_time + 24.hours)
+  def activate
+    self.active = true
+    self.save
   end
 
   def deactivate
@@ -37,6 +29,10 @@ class BathroomVisit < ActiveRecord::Base
   def update_end_time
     self.end_time = Time.now
     self.save
+  end
+
+  def duration
+    self.end_time-self.start_time
   end
 
 end
