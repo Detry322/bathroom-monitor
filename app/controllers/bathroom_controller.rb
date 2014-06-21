@@ -24,10 +24,14 @@ class BathroomController < ApplicationController
   end
 
   def update_browser
+    output = (Concierge.occupied?) ? "occupied" : "vacant"
+    if (Concierge.occupied? and params[:with_time] == 'yes')
+        output = "%s %i" % [output, BathroomVisit.last.duration.to_i]
+    end
     if Concierge.occupied?
-      render plain: "occupied"
+      render plain: output
     else
-      render plain: "vacant"
+      render plain: output
     end
   end
 

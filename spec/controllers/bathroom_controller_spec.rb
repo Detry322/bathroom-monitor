@@ -111,16 +111,25 @@ RSpec.describe BathroomController, :type => :controller do
   describe "GET update" do
     render_views
 
-    it 'should say Vacant if vacant' do
+    it 'should say Vacant if vacant and no arguments' do
       BathroomVisit.create(start_time: Time.now,end_time: nil).update_end_time
       get :update_browser
-      expect(response.body).to match(/vacant/)
+      expect(response.body).to match(/^vacant$/)
     end
 
-    it 'should say occupied if occupied' do
+    it 'should say occupied if occupied and no arguments' do
       BathroomVisit.create(start_time: Time.now,end_time: nil)
       get :update_browser
-      expect(response.body).to match(/occupied/)
+      expect(response.body).to match(/^occupied$/)
+    end
+
+    it 'should say include time with status when occupied with with_time argument' do
+      BathroomVisit.create(start_time: Time.now,end_time: nil)
+      get :update_browser , :with_time => "yes"
+      expect(response.body).to match(/^occupied [0-9]+$/)
+      BathroomVisit.last.update_end_time
+      get :update_browser , :with_time => "yes"
+      expect(response.body).to match(/^vacant$/)
     end
 
   end
