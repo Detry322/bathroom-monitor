@@ -44,4 +44,4 @@ How do I get up and running?
     1. Copy `scripts/occupied.sh.example` and `scripts/vacant.sh.example` over to `scripts/occupied.sh` and `scripts/vacant.sh`
     2. Update both scripts to include your secret key from step (2).
     3. Run `brew install curl` if you don't have cURL.
-    4. To update the status, run ./occupied.sh or ./vacant.sh while the server is running
+    4. To update the status, run `./scripts/occupied.sh` or `./scripts/vacant.sh` while the server is running
