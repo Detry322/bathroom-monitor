@@ -1,4 +1,5 @@
 %body{ class: (@in_use) ? "red" : "green"}
   %h1= (@in_use) ? "IN USE" : "VACANT"
+  %h3= "The bathroom has been " + ((@in_use) ? "occupied" : "vacant") + " for #{(@time/60.0).round(2)} minutes."
   %h5 This page is auto-updating.
   %script setTimeout("update();",3000);

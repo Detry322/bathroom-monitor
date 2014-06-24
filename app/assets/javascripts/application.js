@@ -30,10 +30,12 @@ function changeFavicon(src) {
 function update()
 {
   xmlhttp=new XMLHttpRequest();
-  xmlhttp.open("GET","/update",false);
+  xmlhttp.open("GET","/update?with_time=yes",false);
   xmlhttp.send();
+  var time = Math.round(parseInt(xmlhttp.responseText.split(' ')[1],10) * 1.6666)/100;
   x = $('body');
-  if (xmlhttp.responseText == "occupied") {
+  if (xmlhttp.responseText.match(/occupied/)) {
+    $('h3').html("The bathroom has been occupied for "+time+" minutes.");
     if (x.hasClass("green")) {
       x.removeClass("green");
       x.addClass("red");
@@ -41,6 +43,7 @@ function update()
       changeFavicon("/assets/occupied.png");
     }
   } else {
+    $('h3').html("The bathroom has been vacant for "+time+" minutes.");
     if (x.hasClass("red")) {
       x.removeClass("red");
       x.addClass("green");

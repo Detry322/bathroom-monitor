@@ -7,6 +7,7 @@ class BathroomController < ApplicationController
 
   def index
     @in_use = Concierge.occupied?
+    @time = Concierge.status_time
   end
 
   def statistics
@@ -25,14 +26,10 @@ class BathroomController < ApplicationController
 
   def update_browser
     output = (Concierge.occupied?) ? "occupied" : "vacant"
-    if (Concierge.occupied? and params[:with_time] == 'yes')
-        output = "%s %i" % [output, BathroomVisit.last.duration.to_i]
+    if params[:with_time] == 'yes'
+        output += (" %i" % Concierge.status_time)
     end
-    if Concierge.occupied?
-      render plain: output
-    else
-      render plain: output
-    end
+    render plain: output
   end
 
   def update_status

@@ -73,6 +73,10 @@ class Concierge
     BathroomVisit.last.active?
   end
 
+  def self.status_time
+    ((Concierge.occupied?) ? BathroomVisit.last.duration : (Time.now - BathroomVisit.last.end_time).to_i)
+  end
+
   def self.create_session
     BathroomVisit.create(start_time: Time.now, end_time: nil);
   end

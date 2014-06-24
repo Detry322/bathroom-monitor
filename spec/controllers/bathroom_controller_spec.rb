@@ -83,22 +83,22 @@ RSpec.describe BathroomController, :type => :controller do
 
     it 'should display total number of minutes today' do
       get :statistics
-      expect(response.body).to match(/<strong>16<\/strong>/)
+      expect(response.body).to match(/<strong>16\.0<\/strong>/)
     end
 
     it 'should display total number of minutes in the past seven days' do
       get :statistics
-      expect(response.body).to match(/<strong>76<\/strong>/)
+      expect(response.body).to match(/<strong>76\.0<\/strong>/)
     end
 
     it 'should display total number of hours in the past thirty days' do
       get :statistics
-      expect(response.body).to match(/<strong>2\.3<\/strong>/)
+      expect(response.body).to match(/<strong>2\.27<\/strong>/)
     end
 
     it 'should display total number of hours' do
       get :statistics
-      expect(response.body).to match(/<strong>3\.3<\/strong>/)
+      expect(response.body).to match(/<strong>3\.27<\/strong>/)
     end
 
     it 'should display two charts' do
@@ -123,13 +123,13 @@ RSpec.describe BathroomController, :type => :controller do
       expect(response.body).to match(/^occupied$/)
     end
 
-    it 'should say include time with status when occupied with with_time argument' do
+    it 'should say include time with status with with_time argument' do
       BathroomVisit.create(start_time: Time.now,end_time: nil)
       get :update_browser , :with_time => "yes"
       expect(response.body).to match(/^occupied [0-9]+$/)
       BathroomVisit.last.update_end_time
       get :update_browser , :with_time => "yes"
-      expect(response.body).to match(/^vacant$/)
+      expect(response.body).to match(/^vacant [0-9]+$/)
     end
 
   end
