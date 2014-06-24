@@ -8,7 +8,7 @@ Bundler.require(*Rails.groups)
 
 module BathroomMonitor
 
-  SECRET = 'seluyrjgtiw34i736gyfukalerbgoeauybehlrfbk'
+  SECRET = '<secret goes here>'
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
