@@ -146,28 +146,28 @@ RSpec.describe BathroomController, :type => :controller do
     end
 
     it 'should return HTTP 400 Bad Request if status is anything other than closed or open' do
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => nil
+      post :update_status, :secret => SECRET, :status => nil
       expect(response).to have_http_status(:bad_request)
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'poopy'
+      post :update_status, :secret => SECRET, :status => 'poopy'
       expect(response).to have_http_status(:bad_request)
     end
 
     it 'should return HTTP 200 OK if status is closed or open' do
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'closed'
+      post :update_status, :secret => SECRET, :status => 'closed'
       expect(response).to have_http_status(:ok)
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'open'
+      post :update_status, :secret => SECRET, :status => 'open'
       expect(response).to have_http_status(:ok)
     end
 
     it 'should create a session if the session was inactive and the door is closed' do
       BathroomVisit.create(start_time: Time.now,end_time: Time.now)
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'closed'
+      post :update_status, :secret => SECRET, :status => 'closed'
       expect(BathroomVisit.last.active?).to eq true
     end
 
     it 'should keep the session if the session was active and the door is closed' do
       BathroomVisit.create(start_time: Time.day_start!, end_time: nil)
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'closed'
+      post :update_status, :secret => SECRET, :status => 'closed'
       expect(BathroomVisit.last.active?).to eq true
       expect(BathroomVisit.last.end_time).to eq nil
       expect(BathroomVisit.last.start_time).to eq Time.day_start!
@@ -176,14 +176,14 @@ RSpec.describe BathroomController, :type => :controller do
 
     it 'should end the session if the session was active and the door is open' do
       BathroomVisit.create(start_time: Time.day_start(10), end_time: nil)
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'open'
+      post :update_status, :secret => SECRET, :status => 'open'
       expect(BathroomVisit.last.start_time).to eq Time.day_start(10)
       expect(BathroomVisit.last.end_time).to be_truthy
     end
 
     it 'should not touch anything if the session was inactive and the door is open' do
       BathroomVisit.create(start_time: Time.day_start(10), end_time: Time.day_start(10))
-      post :update_status, :secret => BathroomMonitor::SECRET, :status => 'open'
+      post :update_status, :secret => SECRET, :status => 'open'
       expect(BathroomVisit.last.start_time).to eq Time.day_start(10)
       expect(BathroomVisit.last.start_time).to eq Time.day_start(10)
     end

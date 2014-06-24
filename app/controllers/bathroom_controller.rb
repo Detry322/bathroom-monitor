@@ -28,7 +28,7 @@ class BathroomController < ApplicationController
   end
 
   def update_status
-    if params[:secret] == BathroomMonitor::SECRET
+    if params[:secret] == SECRET
       if ['open','closed'].include?(params[:status])
         last_visit = BathroomVisit.last
         if params[:status] == 'closed'
