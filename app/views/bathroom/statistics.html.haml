@@ -15,7 +15,7 @@
       %li== ...<strong>#{(@thirty_day_visit_seconds/60.0/60).round(2)}</strong> hours in the last 30 days.
       %li== ...<strong>#{(@total_visit_seconds/60.0/60).round(2)}</strong> hours since installation.
     %hr
-    %h3 Seconds Spent by Day
+    %h3 Minutes Spent by Day
     = column_chart(@seven_day_time_graph)
     %h3 Trips by Day
     = column_chart(@seven_day_trip_graph)

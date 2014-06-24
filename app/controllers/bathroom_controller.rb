@@ -14,7 +14,7 @@ class BathroomController < ApplicationController
     @seven_day_visit_seconds = Concierge.seven_day_seconds;
     @thirty_day_visit_seconds = Concierge.thirty_day_seconds;
     @total_visit_seconds = Concierge.total_seconds;
-    @seven_day_time_graph = Concierge.seven_day_report_seconds;
+    @seven_day_time_graph = Concierge.seven_day_report_minutes;
     @seven_day_trip_graph = Concierge.seven_day_report_trips;
 
   end

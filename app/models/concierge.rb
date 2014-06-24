@@ -60,11 +60,11 @@ class Concierge
     result.reverse
   end
 
-  def self.seven_day_report_seconds
+  def self.seven_day_report_minutes
     result = []
     7.times do |day|
       trips = Concierge.trips_between(Time.day_start(day),Time.day_end(day))
-      result << [ Time.day_start(day).strftime("%a") , get_seconds(trips) ]
+      result << [ Time.day_start(day).strftime("%a") , get_seconds(trips)/60.0 ]
     end
     result.reverse
   end
