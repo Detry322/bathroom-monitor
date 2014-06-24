@@ -85,9 +85,9 @@ describe Concierge do
   end
 
   it 'should generate a report of seconds for the past seven days' do
-    x = Concierge.seven_day_report_seconds
+    x = Concierge.seven_day_report_minutes
     expect(x.count).to eq 7
-    expect(x[6][1]).to eq 960
+    expect(x[6][1]).to eq 16
     expect(x[6][0]).to eq Time.now.strftime("%a")
   end
 
