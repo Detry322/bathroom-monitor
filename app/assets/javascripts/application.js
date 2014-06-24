@@ -48,5 +48,5 @@ function update()
       changeFavicon("/assets/vacant.png");
     }
   }
-  setTimeout("update();",3000);
+  setTimeout("update();",15000);
 }
