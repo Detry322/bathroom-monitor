@@ -2,13 +2,13 @@
   %div.container
     %h2 Bathroom Statistics
     %hr
-    %p People have gone to the bathroom...
+    %p The bathroom has been used...
     %ul
       %li== ...<strong>#{@today_visit_count}</strong> times today.
       %li== ...<strong>#{@seven_day_visit_count}</strong> times in the last 7 days.
       %li== ...<strong>#{@thirty_day_visit_count}</strong> times in the last 30 days.
       %li== ...<strong>#{@total_visit_count}</strong> times since installation.
-    %p In there, they collectively have spent...
+    %p In there, people collectively have spent...
     %ul
       %li== ...<strong>#{"%.2g" % (@today_visit_seconds/60.0)}</strong> minutes today.
       %li== ...<strong>#{"%.2g" % (@seven_day_visit_seconds/60.0)}</strong> minutes in the last 7 days.
