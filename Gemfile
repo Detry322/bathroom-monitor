@@ -16,6 +16,7 @@ gem 'rspec-rails'
 gem 'haml-rails'
 gem 'pry'
 gem 'chartkick'
+gem 'mysql2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
