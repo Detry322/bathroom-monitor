@@ -1,10 +1,5 @@
 class BathroomController < ApplicationController
 
-  if ['development','production'].include?(Rails.env) and BathroomVisit.last.nil?
-    puts "hi"
-    Concierge.create_session.update_end_time
-  end
-
   def index
     @in_use = Concierge.occupied?
     @time = Concierge.status_time
