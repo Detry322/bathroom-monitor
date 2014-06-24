@@ -3,6 +3,13 @@ bathroom-monitor
 
 TableXI's own bathroom monitor - complete with Raspberry Pi!
 
+---
+
+EDIT: This repo has been moved to TableXI's account. This repo is out of date.
+---
+
+---
+
 Uses:
 
 - Ruby version 2.1.2
